@@ -11,7 +11,10 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-BOT_TOKEN = "8331525822:AAHP6xwJaqJx5VdqOzZYRFA9_4bKs28Dmg0"
+# Load bot token from environment variable (set in Railway, NOT in code)
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+if not BOT_TOKEN:
+    raise ValueError("❌ BOT_TOKEN environment variable is not set! Please configure it in Railway.")
 
 # Global variable to store collocations received from N8N
 VIDEO_COLLOCATIONS = {}
@@ -251,14 +254,12 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await query.answer("❌ Unknown action", show_alert=True)
 
-# Webhook endpoint for N8N to trigger bot with new collocations
+# Optional: Webhook handler for N8N (if you later use webhooks instead of file polling)
 async def webhook_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle webhook calls from N8N with collocation data"""
     try:
-        # This would be called by N8N via webhook
-        # For now, we'll use file-based communication
         load_collocations_from_file()
-        logging.info("Collocations reloaded from webhook trigger")
+        logging.info("Collocations reloaded via webhook trigger")
     except Exception as e:
         logging.error(f"Webhook handler error: {e}")
 
@@ -269,8 +270,8 @@ def main():
 
     os.makedirs("cards", exist_ok=True)
 
-    print("🤖 B2+ Collocations Bot starting...")
-    print("Waiting for collocations data from N8N workflow...")
+    logging.info("🤖 B2+ Collocations Bot starting...")
+    logging.info("Waiting for collocations data from N8N workflow...")
     application.run_polling()
 
 if __name__ == "__main__":
