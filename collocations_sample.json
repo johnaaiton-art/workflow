@@ -1,0 +1,24 @@
+{
+  "_metadata": {
+    "topic": "Sample Video Topic",
+    "timestamp": "2024-01-01T00:00:00Z",
+    "student_name": "Vasilina",
+    "chat_id": "-1003063247090"
+  },
+  "category_1": {
+    "name": "📚 Academic Expressions",
+    "expressions": [
+      "conduct research - проводить исследование",
+      "analyze data - анализировать данные",
+      "draw conclusions - делать выводы"
+    ]
+  },
+  "category_2": {
+    "name": "💼 Business Collocations",
+    "expressions": [
+      "make a decision - принимать решение",
+      "reach an agreement - достигать соглашения",
+      "implement a strategy - внедрять стратегию"
+    ]
+  }
+}
